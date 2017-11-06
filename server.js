@@ -5,6 +5,8 @@ const {Users} = require('./models/users');
 const express=require('express');
 const bodyParser=require('body-parser');
 let app=express();
+const port=process.env.PORT||3000;
+
 app.use(bodyParser.json());
 
 //POST req
@@ -48,8 +50,8 @@ app.get('/todos/:id',(req,res)=>{
 });
 
 
-app.listen(3000,()=>{
-    console.log('Server started');
+app.listen(port,()=>{
+    console.log('Server started at ',port);
 });
 
 
