@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-let Todo = mongoose.model('Todo', {
+let TodoSchema= mongoose.Schema({
     text: {
         type: String,
         trim: true,
@@ -15,4 +15,5 @@ let Todo = mongoose.model('Todo', {
         default: null
     }
 });
+let Todo = mongoose.model('Todo',TodoSchema );
 module.exports={Todo};

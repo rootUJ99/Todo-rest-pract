@@ -1,4 +1,5 @@
 const {mongoose}=require('./db/mongoose');
+const {ObjectId}=require('mongodb');
 const {Todo}=require('./models/todo');
 const {Users} = require('./models/users');
 const express=require('express');
@@ -26,7 +27,26 @@ app.get('/todos',(req,res)=>{
     },(err)=>{
         res.status(400).send(err);
     });
-})
+});
+
+//retrive from get 
+app.get('/todos/:id',(req,res)=>{
+   // res.send(req.params);
+   let id = req.params.id;
+   
+   if (!ObjectId.isValid(id)) { 
+       return res.status(404).send();
+    }
+    Todo.findById(id).then((doc)=>{
+        if(!doc){
+            return res.status(404).send();
+        }
+            res.send({doc});
+    }).catch((err) => {
+        res.status(400).send();
+    });
+});
+
 
 app.listen(3000,()=>{
     console.log('Server started');
