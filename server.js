@@ -6,14 +6,6 @@ const express=require('express');
 const bodyParser=require('body-parser');
 let app=express();
 const port=process.env.PORT||3000;
-
-if (process.env.PORT) {
-    mongoose.connect(MONGOLAB_URI, { useMongoClient: true });
-}
-else {
-    mongoose.connect('mongodb://localhost:27017/TodoApp', { useMongoClient: true });
-}
-
 app.use(bodyParser.json());
 
 //POST req
