@@ -8,7 +8,7 @@ let TodoSchema= mongoose.Schema({
     },
     completed: {
         type: Boolean,
-        default: false
+        default: true
     },
     completedAt: {
         type: Number,
