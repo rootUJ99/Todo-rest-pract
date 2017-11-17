@@ -9,6 +9,8 @@ let app=express();
 const port=process.env.PORT||3000;
 app.use(bodyParser.json());
 
+//methods todos//
+//             //
 //POST req
 app.post('/todos',(req,res)=>{
     let aTodo=new Todo({
@@ -23,6 +25,8 @@ app.post('/todos',(req,res)=>{
     })
 });
 
+
+//GET req
 app.get('/todos',(req,res)=>{
     Todo.find().then((doc)=>{
         res.send(doc);
@@ -88,6 +92,22 @@ app.patch('/todos/:id',(req,res)=>{
     })
 });
 
+//methods users//
+//             //
+app.post('/users',(req,res)=>{
+     let body=_.pick(req.body,['email','password']);
+    let user= new Users(body);
+    user.save().then(()=>{
+        return user.generateAuthToken();
+    }).then((token)=>{
+        res.header('x-auth',token).send(user);
+    }).catch((e)=>{
+        res.status(400).send(e);
+    })
+});
+
+
+//port listen 
 app.listen(port,()=>{
     console.log('Server started at ',port);
 });
